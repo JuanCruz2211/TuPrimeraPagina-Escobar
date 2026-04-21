@@ -1,0 +1,13 @@
+{% extends 'AppCoder/base.html' %}
+
+{% block title %}Inicio - AppCoder{% endblock %}
+
+{% block content %}
+    <div class="p-5 mb-4 bg-white border rounded-3 shadow text-center">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold text-primary">¡Bienvenido a AppCoder!</h1>
+            <hr class="my-4">
+            <a href="{% url 'CursoFormulario' %}" class="btn btn-primary btn-lg mt-3 shadow">Empezar a cargar Cursos</a>
+        </div>
+    </div>
+{% endblock %}

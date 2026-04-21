@@ -1,0 +1,26 @@
+{% extends 'AppCoder/base.html' %}
+{% block title %}Resultados{% endblock %}
+{% block content %}
+    <h2 class="text-center">Resultados para la camada: <span class="text-primary">{{ camada }}</span></h2>
+    <div class="mt-4 row justify-content-center">
+        <div class="col-md-8">
+            {% if cursos %}
+                <ul class="list-group shadow-sm">
+                    {% for curso in cursos %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center fs-5">
+                            {{ curso.nombre }}
+                            <span class="badge bg-primary rounded-pill">Camada {{ curso.camada }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-warning text-center shadow-sm" role="alert">
+                    No se encontraron cursos registrados con esa camada.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="text-center mt-5">
+        <a href="{% url 'BusquedaCurso' %}" class="btn btn-secondary btn-lg shadow-sm">Realizar otra busqueda</a>
+    </div>
+{% endblock %}

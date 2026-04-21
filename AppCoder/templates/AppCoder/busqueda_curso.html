@@ -1,0 +1,16 @@
+{% extends 'AppCoder/base.html' %}
+{% block title %}Buscar Curso{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2>Buscar un Curso por Camada</h2>
+            <form action="{% url 'Buscar' %}" method="GET" class="mt-4">
+                <div class="input-group mb-3 shadow-sm">
+                    <input type="number" name="camada" class="form-control form-control-lg" placeholder="Ej: 55443" required>
+                    <button class="btn btn-primary" type="submit">Buscar en BD</button>
+                </div>
+            </form>
+            {% if error %} <p class="text-danger mt-2">{{ error }}</p> {% endif %}
+        </div>
+    </div>
+{% endblock %}
