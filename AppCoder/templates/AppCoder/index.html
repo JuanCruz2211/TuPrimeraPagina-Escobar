@@ -3,11 +3,15 @@
 {% block title %}Inicio - AppCoder{% endblock %}
 
 {% block content %}
-    <div class="p-5 mb-4 bg-white border rounded-3 shadow text-center">
-        <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold text-primary">¡Bienvenido a AppCoder!</h1>
+    <div class="p-5 mb-4 bg-white card-custom text-center">
+        <div class="container-fluid py-4">
+            <h1 class="display-5 fw-bold text-primary mb-3">Bienvenido a AppCoder</h1>
+            <p class="fs-5 text-muted mb-4">Sistema de gestión académica desarrollado con Django. Administración de cursos, estudiantes y profesores de forma estructurada.</p>
             <hr class="my-4">
-            <a href="{% url 'CursoFormulario' %}" class="btn btn-primary btn-lg mt-3 shadow">Empezar a cargar Cursos</a>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a href="{% url 'CursoFormulario' %}" class="btn btn-primary btn-lg shadow-sm">Gestionar Cursos</a>
+                <a href="{% url 'BusquedaCurso' %}" class="btn btn-outline-dark btn-lg shadow-sm">Consultar Base de Datos</a>
+            </div>
         </div>
     </div>
 {% endblock %}
