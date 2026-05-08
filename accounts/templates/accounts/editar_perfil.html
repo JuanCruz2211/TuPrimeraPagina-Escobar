@@ -1,0 +1,17 @@
+{% extends 'AppCoder/base.html' %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="text-center mb-4">Actualizar Mis Datos</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ perfil_form.as_p }}
+            <button type="submit" class="btn btn-success w-100">Guardar Cambios</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

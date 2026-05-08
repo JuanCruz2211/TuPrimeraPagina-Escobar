@@ -1,0 +1,27 @@
+{% extends 'AppCoder/base.html' %}
+
+{% block title %}Mi Perfil{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2>Perfil de {{ user.username }}</h2>
+        
+        {% if perfil.avatar %}
+            <img src="{{ perfil.avatar.url }}" alt="Avatar" class="img-fluid rounded-circle mb-3" style="max-width: 200px;">
+        {% else %}
+            <p>No tenés foto de perfil todavía.</p>
+        {% endif %}
+
+        <p><strong>Nombre:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Biografía:</strong> {{ perfil.biografia|default:"Sin biografía" }}</p>
+        
+        {% if perfil.link %}
+            <p><strong>Link:</strong> <a href="{{ perfil.link }}" target="_blank">{{ perfil.link }}</a></p>
+        {% endif %}
+
+        <a href="{% url 'EditarPerfil' %}" class="btn btn-primary mt-3">Editar mis datos</a>
+    </div>
+</div>
+{% endblock %}
