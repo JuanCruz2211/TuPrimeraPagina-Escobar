@@ -1,0 +1,22 @@
+{% extends 'AppCoder/base.html' %}
+{% block title %}Editor de Artículos{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h2 class="mb-4">Editor de Artículos</h2>
+        <div class="card shadow p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {{ form.media }}
+                
+                {{ form.as_p }}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Guardar Artículo</button>
+                    <a href="{% url 'Articulos' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

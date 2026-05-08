@@ -1,0 +1,30 @@
+{% extends 'AppCoder/base.html' %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Últimos Artículos</h2>
+    <a href="{% url 'ArticuloCrear' %}" class="btn btn-success">Crear Nuevo Artículo</a>
+</div>
+
+<div class="row">
+    {% for articulo in object_list %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if articulo.imagen %}
+            <img src="{{ articulo.imagen.url }}" class="card-img-top" alt="Imagen" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ articulo.titulo }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ articulo.subtitulo }}</h6>
+                <p class="card-text"><small>Por {{ articulo.autor.username }} | {{ articulo.fecha }}</small></p>
+                <a href="{% url 'ArticuloDetalle' articulo.id %}" class="btn btn-primary btn-sm">Leer más</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>No hay artículos todavía. ¡Animate a escribir el primero!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

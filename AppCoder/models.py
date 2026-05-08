@@ -1,4 +1,6 @@
 from django.db import models
+from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -33,3 +35,14 @@ class Entregable(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Articulo(models.Model):
+    titulo = models.CharField(max_length=200)
+    subtitulo = models.CharField(max_length=200)
+    cuerpo = RichTextField() # uso ckeditor para el texto principal
+    imagen = models.ImageField(upload_to='articulos', null=True, blank=True)
+    fecha = models.DateField(auto_now_add=True)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE) # vincula el post al user logueado
+
+    def __str__(self):
+        return self.titulo

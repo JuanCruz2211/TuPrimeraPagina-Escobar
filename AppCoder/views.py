@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from AppCoder.models import Curso, Estudiante, Profesor
 from AppCoder.forms import CursoFormulario, EstudianteFormulario, ProfesorFormulario
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Articulo 
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
@@ -51,3 +55,35 @@ def buscar(request):
         return render(request, "AppCoder/resultados_busqueda.html", {"cursos": cursos, "camada": camada})
     else:
         return render(request, "AppCoder/busqueda_curso.html", {"error": "No enviaste datos"})
+    
+# Vistas del Blog
+
+class ArticuloListView(ListView):
+    model = Articulo
+    template_name = "AppCoder/articulo_list.html"
+
+class ArticuloDetailView(DetailView):
+    model = Articulo
+    template_name = "AppCoder/articulo_detail.html"
+
+class ArticuloCreateView(LoginRequiredMixin, CreateView):
+    model = Articulo
+    fields = ['titulo', 'subtitulo', 'cuerpo', 'imagen'] # omito fecha y autor porque se asignan solos
+    template_name = "AppCoder/articulo_form.html"
+    success_url = reverse_lazy('Articulos')
+
+    # pisamos el form_valid para atar el articulo al user que lo crea
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+
+class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
+    model = Articulo
+    fields = ['titulo', 'subtitulo', 'cuerpo', 'imagen']
+    template_name = "AppCoder/articulo_form.html"
+    success_url = reverse_lazy('Articulos')
+
+class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
+    model = Articulo
+    template_name = "AppCoder/articulo_confirm_delete.html"
+    success_url = reverse_lazy('Articulos')

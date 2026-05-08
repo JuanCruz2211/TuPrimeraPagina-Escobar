@@ -5,7 +5,6 @@ from .models import Perfil
 
 
 class RegistroFormulario(UserCreationForm):
-    # Agregamos los campos obligatorios que pide Coderhouse
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30, required=True, label="Nombre")
     last_name = forms.CharField(max_length=30, required=True, label="Apellido")
