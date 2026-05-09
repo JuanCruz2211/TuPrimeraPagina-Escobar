@@ -1,13 +1,20 @@
-from django.shortcuts import render
-from AppCoder.models import Curso, Estudiante, Profesor
+from django.shortcuts import render, redirect
+from AppCoder.models import Curso, Estudiante, Profesor, Articulo, Mensaje
 from AppCoder.forms import CursoFormulario, EstudianteFormulario, ProfesorFormulario
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Articulo 
+from django.contrib.auth.decorators import login_required
+
+# --- Vistas Generales ---
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
+
+def about(request):
+    return render(request, 'AppCoder/about.html')
+
+# --- Formularios de Registro ---
 
 def cursoFormulario(request):
     if request.method == "POST":
@@ -45,6 +52,8 @@ def profesorFormulario(request):
         miFormulario = ProfesorFormulario()
     return render(request, "AppCoder/profesor_formulario.html", {"miFormulario": miFormulario})
 
+# --- Búsqueda ---
+
 def busquedaCurso(request):
     return render(request, "AppCoder/busqueda_curso.html")
 
@@ -56,7 +65,7 @@ def buscar(request):
     else:
         return render(request, "AppCoder/busqueda_curso.html", {"error": "No enviaste datos"})
     
-# Vistas del Blog
+# --- Vistas del Blog (CBV) ---
 
 class ArticuloListView(ListView):
     model = Articulo
@@ -68,11 +77,10 @@ class ArticuloDetailView(DetailView):
 
 class ArticuloCreateView(LoginRequiredMixin, CreateView):
     model = Articulo
-    fields = ['titulo', 'subtitulo', 'cuerpo', 'imagen'] # omito fecha y autor porque se asignan solos
+    fields = ['titulo', 'subtitulo', 'cuerpo', 'imagen']
     template_name = "AppCoder/articulo_form.html"
     success_url = reverse_lazy('Articulos')
 
-    # pisamos el form_valid para atar el articulo al user que lo crea
     def form_valid(self, form):
         form.instance.autor = self.request.user
         return super().form_valid(form)
@@ -87,3 +95,10 @@ class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
     model = Articulo
     template_name = "AppCoder/articulo_confirm_delete.html"
     success_url = reverse_lazy('Articulos')
+
+# --- Mensajería ---
+
+@login_required
+def mensajeria(request):
+    mensajes = Mensaje.objects.filter(receptor=request.user).order_by('-fecha')
+    return render(request, 'AppCoder/mensajeria.html', {'mensajes': mensajes})

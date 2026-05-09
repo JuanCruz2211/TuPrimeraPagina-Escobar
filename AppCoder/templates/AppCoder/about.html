@@ -1,0 +1,33 @@
+{% extends 'AppCoder/base.html' %}
+
+{% block title %}Acerca de Mí{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body text-center p-5">
+                <img src="https://ui-avatars.com/api/?name=Juan+Cruz&size=150&background=random" class="rounded-circle mb-4" alt="Avatar">
+                
+                <h2 class="mb-3">Juan Cruz Escobar</h2>
+                <h5 class="text-muted mb-4">Implementador de Sistemas ERP (Odoo, Dux Software) & Desarrollador Backend</h5>
+                
+                <p class="lead text-start">
+                    ¡Hola! Bienvenidos a mi proyecto final para el curso de Python en Coderhouse. 
+                </p>
+                <p class="text-start">
+                    Actualmente trabajo en la implementación de sistemas ERP, automatización de procesos y manejo de bases de datos. En mi tiempo libre, me dedico al gaming y al voley.
+                </p>
+                <p class="text-start">
+                    Este blog fue creado con Django, utilizando el patrón MVT, sistema de usuarios autenticados, y operaciones CRUD completas para la gestión de artículos.
+                </p>
+                
+                <div class="mt-4">
+                    <a href="https://github.com/JuanCruz2211" target="_blank" class="btn btn-dark">Mi GitHub</a>
+                    <a href="{% url 'Articulos' %}" class="btn btn-primary">Ir al Blog</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -42,10 +42,23 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'Inicio' %}">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'CursoFormulario' %}">Agregar Curso</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'EstudianteFormulario' %}">Agregar Estudiante</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'ProfesorFormulario' %}">Agregar Profesor</a></li>
-                    <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'BusquedaCurso' %}">Buscar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Articulos' %}">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Mensajeria' %}">Mensajes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'BusquedaCurso' %}">Buscar Cursos</a></li>
+                    
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link fw-bold" style="color: var(--accent-color);" href="{% url 'Perfil' %}">Hola, {{ user.username }}</a></li>
+                        <li class="nav-item">
+                            <form action="{% url 'Logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="text-decoration: none;">Salir</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Registro' %}">Registrarse</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
